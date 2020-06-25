@@ -1,0 +1,5 @@
+{
+    "eslint.codeActionsOnSave.mode": "all",
+    "editor.formatOnSave": false,
+    "vetur.validation.template": true
+}
