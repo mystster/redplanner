@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM node:latest
+FROM node:erbium-buster
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -32,6 +32,9 @@ RUN apt-get update \
     && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
     && apt-get -y install --no-install-recommends yarn \
+    #
+    # Install Electron dep
+    && apt-get -y install --no-install-recommends libx11-xcb1 libxcb-dri3-0 libxtst6 libdrm2 libgbm1 libxcomposite1 libxcursor1 libxdamage1 libnss3 libgtk-3-0 libasound2 libxss1 \
     #
     # Install typescript globally
     && npm install -g typescript npm \
