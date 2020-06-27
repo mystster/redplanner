@@ -4,5 +4,10 @@ module.exports = {
       poll: true
     }
   },
-  transpileDependencies: ['vuetify']
+  transpileDependencies: ['vuetify'],
+  pluginOptions: {
+    electronBuilder: {
+      nodeIntegration: false
+    }
+  }
 };

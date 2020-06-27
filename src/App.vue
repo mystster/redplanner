@@ -33,15 +33,28 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <HelloWorld />
-    </v-content>
+    </v-main>
+    <div>
+      <div class="etabs-tabgroup">
+        <div class="etabs-tabs"></div>
+        <div class="etabs-buttons"></div>
+      </div>
+      <div class="etabs-views"></div>
+    </div>
   </v-app>
 </template>
-
+<style src="electron-tabs/electron-tabs.css"></style>
+<style scoped>
+.etabs-view {
+  border: 2px;
+}
+</style>
 <script lang="ts">
 import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
+import TabGroup from 'electron-tabs';
 
 export default Vue.extend({
   name: 'App',
@@ -52,6 +65,15 @@ export default Vue.extend({
 
   data: () => ({
     //
-  })
+  }),
+  mounted: () => {
+    const tabGroup = new TabGroup();
+    tabGroup.addTab({
+      title: 'Hello',
+      src: 'https://www.google.co.jp',
+      visible: true,
+      active: true
+    });
+  }
 });
 </script>
