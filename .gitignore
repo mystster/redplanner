@@ -3,3 +3,6 @@ node_modules
 #Electron-builder output
 /dist_electron
 /dist
+
+#Redmine Dev
+/redmine_data
