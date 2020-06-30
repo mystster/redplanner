@@ -2,8 +2,10 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/typescript-node-lts
 {
 	"name": "Node.js (latest LTS) & TypeScript",
-	"dockerFile": "Dockerfile",
-
+	//"dockerFile": "Dockerfile",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "redplanner",
+	"shutdownAction": "stopCompose",
 	// Use 'settings' to set *default* container specific settings.json values on container create. 
 	// You can edit these settings after create using File > Prefcerences > Settings > Remote.
 	"settings": { 
@@ -11,7 +13,6 @@
 		"terminal.integrated.cwd": "/workspaces/redplanner/"
 	},
 	"workspaceFolder": "/workspaces/redplanner/",
-	"mounts": ["source=redplanner-node-modules,target=/workspaces/redplanner/node_modules,type=volume"],
 	"remoteEnv": {"DISPLAY": "192.168.174.2:0"},
 	// Uncomment the next line if you want to publish any ports.
 	// "appPort": [3000],
