@@ -74,6 +74,21 @@ export default Vue.extend({
       visible: true,
       active: true
     });
+    tabGroup.addTab({
+      title: 'Hello',
+      src: './test.html',
+      visible: true
+    });
+    tabGroup.addTab({
+      title: 'Redmine1',
+      src: 'http://redmine',
+      visible: true
+    });
+    tabGroup.addTab({
+      title: 'Redmine2',
+      src: 'http://redmine',
+      visible: true
+    });
   }
 });
 </script>
