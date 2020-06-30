@@ -36,6 +36,11 @@ RUN apt-get update \
     # Install Electron dep
     && apt-get -y install --no-install-recommends libx11-xcb1 libxcb-dri3-0 libxtst6 libdrm2 libgbm1 libxcomposite1 libxcursor1 libxdamage1 libnss3 libgtk-3-0 libasound2 libxss1 \
     #
+    # Install Japanese fonts
+    # && apt-get install -y  --no-install-recommends locales\
+    # && locale-gen ja_JP.UTF-8 \
+    # && localedef -f UTF-8 -i ja_JP ja_JP.utf8 \
+    #
     # Install typescript globally
     && npm install -g typescript npm \
     #
@@ -54,3 +59,9 @@ RUN apt-get update \
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
+
+# LANG
+# ENV LANG ja_JP.UTF-8
+# ENV LC_CTYPE ja_JP.UTF-8
+ENV LANG C.UTF-8
+ENV LANGUAGE en_US:
