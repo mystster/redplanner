@@ -55,6 +55,7 @@
 import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
 import TabGroup from 'electron-tabs';
+import { vmx } from '@/store';
 
 export default Vue.extend({
   name: 'App',
@@ -89,6 +90,8 @@ export default Vue.extend({
       src: 'http://redmine',
       visible: true
     });
+    console.log(`Cookie:${vmx.redmine.cookie}`);
+    vmx.redmine.cookie = 'aaaaa';
   }
 });
 </script>
