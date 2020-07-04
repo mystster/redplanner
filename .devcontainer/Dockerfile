@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM node:erbium-buster
+FROM electronuserland/builder:wine
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,17 +24,17 @@ RUN apt-get update \
     #
     # Remove outdated yarn from /opt and install via package 
     # so it can be easily updated via apt-get upgrade yarn
-    && rm -rf /opt/yarn-* \
-    && rm -f /usr/local/bin/yarn \
-    && rm -f /usr/local/bin/yarnpkg \
-    && apt-get install -y curl apt-transport-https lsb-release \
-    && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
-    && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
-    && apt-get -y install --no-install-recommends yarn \
+    # && rm -rf /opt/yarn-* \
+    # && rm -f /usr/local/bin/yarn \
+    # && rm -f /usr/local/bin/yarnpkg \
+    # && apt-get install -y curl apt-transport-https lsb-release \
+    # && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
+    # && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    # && apt-get update \
+    # && apt-get -y install --no-install-recommends yarn \
     #
     # Install Electron dep
-    && apt-get -y install --no-install-recommends libx11-xcb1 libxcb-dri3-0 libxtst6 libdrm2 libgbm1 libxcomposite1 libxcursor1 libxdamage1 libnss3 libgtk-3-0 libasound2 libxss1 \
+    && apt-get -y install --no-install-recommends libxcomposite1 libxcursor1 libxrender1 libxtst6 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libxss1 \
     #
     # Install Japanese fonts
     # && apt-get install -y  --no-install-recommends locales\
@@ -45,12 +45,12 @@ RUN apt-get update \
     && npm install -g typescript npm \
     #
     # [Optional] Update a non-root user to match UID/GID - see https://aka.ms/vscode-remote/containers/non-root-user.
-    && if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
-    && if [ "$USER_UID" != "1000" ]; then usermod --uid $USER_UID node; fi \
+    # && if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
+    # && if [ "$USER_UID" != "1000" ]; then usermod --uid $USER_UID node; fi \
     # [Optional] Add add sudo support for non-root user
-    && apt-get install -y sudo \
-    && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
-    && chmod 0440 /etc/sudoers.d/node \
+    # && apt-get install -y sudo \
+    # && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
+    # && chmod 0440 /etc/sudoers.d/node \
     #
     # Clean up
     && apt-get autoremove -y \
