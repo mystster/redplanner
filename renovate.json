@@ -1,0 +1,37 @@
+{
+  "masterIssue": true,
+  "minor": {
+    "labels": ["dependencies", "minor"]
+  },
+  "major": {
+    "labels": ["dependencies", "major"]
+  },
+  "js": {
+    "packageRules": [
+      {
+        "packagePatterns": ["*"],
+        "minor": {
+          "groupName": "all non-major dependencies",
+          "groupSlug": "all-minor-patch"
+        }
+      },
+      {
+        "groupName": "ESLint and Prettier",
+        "packageNames": ["eslint", "prettier"],
+        "packagePatterns": ["^eslint-config-", "^eslint-plugin-"]
+      },
+      {
+        "groupName": "Vue CLI",
+        "packagePatterns": ["^@vue/"]
+      }
+    ]
+  },
+  "extends": [
+    "config:base",
+    "helpers:disableTypesNodeMajor",
+    ":timezone(Asia/Tokyo)",
+    "schedule:weekdays",
+    ":assignee(mystster)",
+    ":prConcurrentLimit10"
+  ]
+}
