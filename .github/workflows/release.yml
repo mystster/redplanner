@@ -41,5 +41,5 @@ jobs:
       uses: samuelmeuli/action-electron-builder@v1
       with:
         github_token: ${{ github.token }}
-        release: true
+        release: false
         use_vue_cli: true
