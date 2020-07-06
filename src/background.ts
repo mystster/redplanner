@@ -45,6 +45,24 @@ function createWindow() {
   });
 }
 
+autoUpdater.on('update-available', (e) => {
+  console.log('update-available');
+  autoUpdater.downloadUpdate();
+  console.log('event:', e);
+});
+autoUpdater.on('download-progress', (e) => {
+  console.log('download-progress');
+  console.log('event', e);
+});
+autoUpdater.on('update-not-available', (e) => {
+  console.log('update-not-available', e);
+});
+autoUpdater.on('update-downloaded', (e) => {
+  console.log('update-downloaded');
+  console.log('event:', e);
+  autoUpdater.quitAndInstall();
+});
+
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
