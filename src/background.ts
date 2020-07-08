@@ -37,17 +37,16 @@ function createWindow() {
     createProtocol('app');
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
-    autoUpdater.checkForUpdatesAndNotify();
   }
-
+  
   win.on('closed', () => {
     win = null;
   });
 }
+console.log('App starting...');
 
 autoUpdater.on('update-available', (e) => {
   console.log('update-available');
-  autoUpdater.downloadUpdate();
   console.log('event:', e);
 });
 autoUpdater.on('download-progress', (e) => {
@@ -60,8 +59,8 @@ autoUpdater.on('update-not-available', (e) => {
 autoUpdater.on('update-downloaded', (e) => {
   console.log('update-downloaded');
   console.log('event:', e);
-  autoUpdater.quitAndInstall();
 });
+autoUpdater.checkForUpdatesAndNotify();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
