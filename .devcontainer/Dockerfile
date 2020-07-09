@@ -52,6 +52,9 @@ RUN apt-get update \
     # && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
     # && chmod 0440 /etc/sudoers.d/node \
     #
+    # install useful tools
+    && apt-get install -y --no-install-recommends jq \
+
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
