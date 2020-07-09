@@ -25,13 +25,27 @@ jobs:
     - name: set CI version
       run: |
         jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "ci."+$runnumber' package.json > package.json
-        cat package.json
       shell: bash
+    - name: Cat for GitHub Actions
+      uses: pCYSl5EDgo/cat@1.0.0
+      id: package
+      with:
+        path: package.json
+    - run: echo $TEXT
+      env:
+        TEXT: ${{ steps.package.outputs.text }}
     - name: change release type to ${{ env.releaseType }}
       run: |
         sed -e 's/\(releaseType: \).*/\1'\''${{ env.releaseType }}'\'',/' vue.config.js > vue.config.js
-        cat vue.config.js
       shell: bash
+    - name: Cat for GitHub Actions
+      uses: pCYSl5EDgo/cat@1.0.0
+      id: vue
+      with:
+        path: vue.config.js
+    - run: echo $TEXT
+      env:
+        TEXT: ${{ steps.vue.outputs.text }}
     - name: Get cache directory path
       id: cache-dir-path
       run: |
