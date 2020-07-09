@@ -1,13 +1,14 @@
 {
   "name": "redplanner",
-  "version": "1.1.0",
+  "version": "0.0.2",
   "private": true,
   "description": "Redmine + Planner",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build --win --x64",
+    "electron:build": "vue-cli-service electron:build --win --x64 -p never",
+    "electron:publish": "vue-cli-service electron:build --win --x64 -p always",
     "electron:build-dir": "vue-cli-service electron:build --win --x64 --dir",
     "electron:serve": "vue-cli-service electron:serve --no-sandbox",
     "postinstall": "electron-builder install-app-deps",
