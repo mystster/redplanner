@@ -1,13 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: (Push)build and publish image to Functions
+name: publish app
 
 on:
   push:
 
 env:
   node-version: 12.16.3
+  releaseType: draft
 
 jobs:
   build:
@@ -21,6 +22,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.node-version }}
+    - name: set CI version
+      run: |
+        jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "-ci."+$runnumber' package.json > temp
+        mv temp package.json
+      shell: bash
+    - name: change release type to ${{ env.releaseType }}
+      run: |
+        sed -i -e 's/\(releaseType: \).*/\1'\''${{ env.releaseType }}'\'',/' vue.config.js
+      shell: bash
     - name: Get cache directory path
       id: cache-dir-path
       run: |
@@ -37,9 +47,5 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Install dependencies
       run: yarn --frozen-lockfile
-    - name: Build and Release
-      uses: samuelmeuli/action-electron-builder@v1
-      with:
-        github_token: ${{ github.token }}
-        release: true
-        use_vue_cli: true
+    - name : Build and Release
+      run: yarn electron:publish

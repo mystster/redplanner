@@ -18,9 +18,11 @@ module.exports = {
         productName: 'RedPlanner',
         generateUpdatesFilesForAllChannels: true,
         publish: {
-          releaseType: 'release',
-          provider: 'github',
-          channel: 'alpha'
+          releaseType: 'prerelease',
+          // provider: 's3',
+          // bucket: 'test-update',
+          // endpoint: 'http://xxxxxxxxxx:9000',
+          provider: 'github'
         }
       }
     }
