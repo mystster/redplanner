@@ -25,7 +25,7 @@ jobs:
     - name: set CI version
       run: jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "ci."+run number' package.json > package.json
     - name: change release type to pre-release
-      run: sed -e 's/\(releaseType: \).*/\1'${{releaseType}}',/' vue.config.js > vue.config.js
+      run: sed -e 's/\(releaseType: \).*/\1'${{ env.releaseType }}',/' vue.config.js > vue.config.js
     - name: Get cache directory path
       id: cache-dir-path
       run: |
