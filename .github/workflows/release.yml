@@ -24,7 +24,7 @@ jobs:
         node-version: ${{ env.node-version }}
     - name: set CI version
       run: |
-        jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "ci."+$runnumber' package.json > temp
+        jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "-ci."+$runnumber' package.json > temp
         mv temp package.json
       shell: bash
     - name: change release type to ${{ env.releaseType }}
