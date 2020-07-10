@@ -1,17 +1,18 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: publish app
+name: stable app release
 
 on:
-  push:
+  create:
 
 env:
   node-version: 12.16.3
-  releaseType: draft
+  releaseType: release
 
 jobs:
   build:
+    if: startsWith( github.ref, 'refs/tags/v' ) && !contains( github.ref, 'ci' )
     runs-on: windows-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -23,8 +24,11 @@ jobs:
       with:
         node-version: ${{ env.node-version }}
     - name: set CI version
+      env:
+        REF: ${{github.ref}}
       run: |
-        jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "-ci."+$runnumber' package.json > temp
+        VERSION=${REF:11}
+        jq --arg v "$VERSION" '.version |= $v' package.json > temp
         mv temp package.json
       shell: bash
     - name: change release type to ${{ env.releaseType }}
