@@ -1,0 +1,52 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: ci-release
+
+on:
+  push:
+    branches: [ master]
+
+env:
+  node-version: 12.16.3
+  releaseType: prerelease
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.node-version }}
+    - name: set CI version
+      run: |
+        jq --arg runnumber "$GITHUB_RUN_NUMBER" '.version += "-ci."+$runnumber' package.json > temp
+        mv temp package.json
+      shell: bash
+    - name: change release type to ${{ env.releaseType }}
+      run: |
+        sed -i -e 's/\(releaseType: \).*/\1'\''${{ env.releaseType }}'\'',/' vue.config.js
+      shell: bash
+    - name: Get cache directory path
+      id: cache-dir-path
+      run: |
+        echo "::set-output name=yarn-dir::$(yarn cache dir)"
+        echo "::set-output name=electron-dir::$home\.cache"
+    - uses: actions/cache@v2
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: |
+          ${{ steps.cache-dir-path.outputs.yarn-dir }}
+          ${{ steps.cache-dir-path.outputs.electron-dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+    - name : Build and Release
+      run: yarn electron:publish
