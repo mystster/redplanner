@@ -1,10 +1,9 @@
 'use strict';
 
 import { app, protocol, BrowserWindow } from 'electron';
-import {
-  createProtocol
-} from 'vue-cli-plugin-electron-builder/lib';
-import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
+import { autoUpdater } from 'electron-updater';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -39,11 +38,29 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
   }
-
+  
   win.on('closed', () => {
     win = null;
   });
 }
+console.log('App starting...');
+
+autoUpdater.on('update-available', (e) => {
+  console.log('update-available');
+  console.log('event:', e);
+});
+autoUpdater.on('download-progress', (e) => {
+  console.log('download-progress');
+  console.log('event', e);
+});
+autoUpdater.on('update-not-available', (e) => {
+  console.log('update-not-available', e);
+});
+autoUpdater.on('update-downloaded', (e) => {
+  console.log('update-downloaded');
+  console.log('event:', e);
+});
+autoUpdater.checkForUpdatesAndNotify();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

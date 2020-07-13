@@ -6,3 +6,5 @@ node_modules
 
 #Redmine Dev
 /redmine_data
+
+*.local.env
