@@ -15,7 +15,7 @@ import { vmx } from '@/store';
 import { remote } from 'electron';
 
 @Component
-export default class WeatherNow extends Vue {
+export default class TabBrowser extends Vue {
   tabGroup = new TabGroup();
   async mounted() {
     const tabGroup = new TabGroup();
