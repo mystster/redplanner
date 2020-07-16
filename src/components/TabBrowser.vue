@@ -38,7 +38,7 @@ export default class WeatherNow extends Vue {
       },
       active: true
     });
-    const setCookeiToRedmineTab = async () => {
+    const setCookieToRedmineTab = async () => {
       console.log('webviews dom-ready event is fired');
       await remote.session
         .fromPartition(vmx.redmine.partition)
@@ -53,10 +53,10 @@ export default class WeatherNow extends Vue {
       console.log(`Cookie:${vmx.redmine.cookie}`);
       redmineTab.webview.removeEventListener(
         'dom-ready',
-        setCookeiToRedmineTab
+        setCookieToRedmineTab
       );
     };
-    redmineTab.webview.addEventListener('dom-ready', setCookeiToRedmineTab);
+    redmineTab.webview.addEventListener('dom-ready', setCookieToRedmineTab);
 
     window.addEventListener('beforeunload', async () => {
       console.log('beforeunload!');
