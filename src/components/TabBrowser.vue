@@ -31,25 +31,24 @@ export default class WeatherNow extends Vue {
     });
     const redmineTab = tabGroup.addTab({
       title: 'Redmine1',
-      // src: 'http://redmine',
       visible: true,
+      src: vmx.redmine.baseURL,
       webviewAttributes: {
-        partition: 'persist:redmine'
+        partition: vmx.redmine.partition
       },
       active: true
     });
-
     const setCookeiToRedmineTab = async () => {
       console.log('webviews dom-ready event is fired');
       await remote.session
-        .fromPartition('persist:redmine')
-        .cookies.remove('http://redmine/', '_redmine_session');
-      await remote.session.fromPartition('persist:redmine').cookies.set({
-        url: 'http://redmine/',
-        name: '_redmine_session',
+        .fromPartition(vmx.redmine.partition)
+        .cookies.remove(vmx.redmine.baseURL, vmx.redmine.cookieSession);
+      await remote.session.fromPartition(vmx.redmine.partition).cookies.set({
+        url: vmx.redmine.baseURL,
+        name: vmx.redmine.cookieSession,
         value: vmx.redmine.cookie
       });
-      await redmineTab.webview.loadURL('http://redmine/');
+      await redmineTab.webview.loadURL(vmx.redmine.baseURL);
       redmineTab.webview.openDevTools();
       console.log(`Cookie:${vmx.redmine.cookie}`);
       redmineTab.webview.removeEventListener(
@@ -61,10 +60,11 @@ export default class WeatherNow extends Vue {
 
     window.addEventListener('beforeunload', async () => {
       console.log('beforeunload!');
-      const cookies = remote.session.fromPartition('persist:redmine').cookies;
+      const cookies = remote.session.fromPartition(vmx.redmine.partition)
+        .cookies;
       const redmineCookie = await cookies.get({
-        url: 'http://redmine/',
-        name: '_redmine_session'
+        url: vmx.redmine.baseURL,
+        name: vmx.redmine.cookieSession
       });
       console.dir(remote);
       console.dir(redmineCookie);

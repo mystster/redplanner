@@ -13,7 +13,10 @@ export class RedmineStore extends VuexModule implements RedmineState {
   // state
   // proxy auto create getter, mutation and action
   cookie = '';
+  baseURL = 'http://redmine';
 
+  get partition(): string { return 'persist:redmine'; }
+  get cookieSession(): string { return '_redmine_session';}
   // mutation
   @mutation
   private setCookieMutation(value: string) {
