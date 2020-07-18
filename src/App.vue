@@ -38,7 +38,6 @@
     </v-main>
   </v-app>
 </template>
-<style src="electron-tabs/electron-tabs.css"></style>
 <style scoped>
 .etabs-view {
   border: 2px;
