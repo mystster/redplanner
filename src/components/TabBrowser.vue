@@ -2,6 +2,7 @@
   <div class="tabBrowser" id="tabBrowserPlaceholder">
     <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
+      <v-btn @click="addTab()">addTab</v-btn>
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div>
@@ -10,56 +11,26 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import TabGroup from 'electron-tabs';
+import TabGroup, { Tab } from 'electron-tabs';
 import { vmx } from '@/store';
 import { remote } from 'electron';
+import path from 'path';
 
 @Component
 export default class TabBrowser extends Vue {
-  tabGroup = new TabGroup();
-  async mounted() {
-    const tabGroup = new TabGroup();
-    tabGroup.addTab({
-      title: 'Hello',
-      src: 'https://www.google.co.jp',
-      visible: true
+  private tabGroup: null | TabGroup = null;
+  async created() {
+    console.log('Vue instance created. load cookie');
+    await remote.session
+      .fromPartition(vmx.redmine.partition)
+      .cookies.remove(vmx.redmine.baseURL, vmx.redmine.cookieSession);
+    await remote.session.fromPartition(vmx.redmine.partition).cookies.set({
+      url: vmx.redmine.baseURL,
+      name: vmx.redmine.cookieSession,
+      value: vmx.redmine.cookie
     });
-    tabGroup.addTab({
-      title: 'Hello',
-      src: './test.html',
-      visible: true
-    });
-    const redmineTab = tabGroup.addTab({
-      title: 'Redmine1',
-      visible: true,
-      src: vmx.redmine.baseURL,
-      webviewAttributes: {
-        partition: vmx.redmine.partition
-      },
-      active: true
-    });
-    const setCookieToRedmineTab = async () => {
-      console.log('webviews dom-ready event is fired');
-      await remote.session
-        .fromPartition(vmx.redmine.partition)
-        .cookies.remove(vmx.redmine.baseURL, vmx.redmine.cookieSession);
-      await remote.session.fromPartition(vmx.redmine.partition).cookies.set({
-        url: vmx.redmine.baseURL,
-        name: vmx.redmine.cookieSession,
-        value: vmx.redmine.cookie
-      });
-      await redmineTab.webview.loadURL(vmx.redmine.baseURL);
-      redmineTab.webview.openDevTools();
-      console.log(`Cookie:${vmx.redmine.cookie}`);
-      redmineTab.webview.removeEventListener(
-        'dom-ready',
-        setCookieToRedmineTab
-      );
-    };
-    redmineTab.webview.addEventListener('dom-ready', setCookieToRedmineTab);
-
     window.addEventListener('beforeunload', async () => {
-      console.log('beforeunload!');
+      console.log('beforeunload! Save cookie');
       const cookies = remote.session.fromPartition(vmx.redmine.partition)
         .cookies;
       const redmineCookie = await cookies.get({
@@ -70,6 +41,51 @@ export default class TabBrowser extends Vue {
       console.dir(redmineCookie);
       if (redmineCookie.length === 1) {
         vmx.redmine.cookie = redmineCookie[0].value;
+      }
+    });
+  }
+  async mounted() {
+    this.tabGroup = new TabGroup();
+    this.tabGroup.addTab({
+      title: 'Hello',
+      src: 'https://www.google.co.jp',
+      visible: true
+    });
+    this.tabGroup.addTab({
+      title: 'Hello',
+      src: './test.html',
+      visible: true
+    });
+  }
+
+  async addTab(url: string = vmx.redmine.baseURL) {
+    if (this.tabGroup === null) return;
+    console.log(__dirname);
+    console.log(__filename);
+    const p =
+      'file://' +
+      path.join('/workspaces/redplanner/dist_electron', 'tabBrowserPreload.js');
+    const tab = this.tabGroup.addTab({
+      title: url,
+      visible: true,
+      src: url,
+      webviewAttributes: {
+        partition: vmx.redmine.partition,
+        preload: p
+      },
+      active: true
+    });
+
+    tab.once('webview-dom-ready', (t: Tab) => {
+      t.webview.openDevTools();
+    });
+
+    tab.webview.addEventListener('ipc-message', (event) => {
+      switch (event.channel) {
+        case 'open-newtab': {
+          console.log(`open new tab with ${event.args[0]}`);
+          this.addTab(event.args[0]);
+        }
       }
     });
   }

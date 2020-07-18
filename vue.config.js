@@ -7,6 +7,10 @@ module.exports = {
   transpileDependencies: ['vuetify'],
   pluginOptions: {
     electronBuilder: {
+      preload: {
+        preload: 'src/preload.ts',
+        tabBrowserPreload: 'src/tabBrowserPreload.ts'
+      },
       nodeIntegration: true,
       builderOptions: {
         appId: 'mystster.redplanner',
