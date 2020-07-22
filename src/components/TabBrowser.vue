@@ -13,34 +13,30 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TabGroup, { Tab } from 'electron-tabs';
 import { vmx } from '@/store';
-import { remote } from 'electron';
-import path from 'path';
 
 @Component
 export default class TabBrowser extends Vue {
   private tabGroup: null | TabGroup = null;
   async created() {
     console.log('Vue instance created. load cookie');
-    await remote.session
-      .fromPartition(vmx.redmine.partition)
-      .cookies.remove(vmx.redmine.baseURL, vmx.redmine.cookieSession);
-    await remote.session.fromPartition(vmx.redmine.partition).cookies.set({
-      url: vmx.redmine.baseURL,
-      name: vmx.redmine.cookieSession,
-      value: vmx.redmine.cookie
-    });
+    if (vmx.redmine.cookieValue !== '') {
+      await window.api.setCookie(
+        vmx.redmine.partition,
+        vmx.redmine.baseURL,
+        vmx.redmine.cookieName,
+        vmx.redmine.cookieValue
+      );
+    }
     window.addEventListener('beforeunload', async () => {
       console.log('beforeunload! Save cookie');
-      const cookies = remote.session.fromPartition(vmx.redmine.partition)
-        .cookies;
-      const redmineCookie = await cookies.get({
-        url: vmx.redmine.baseURL,
-        name: vmx.redmine.cookieSession
-      });
-      console.dir(remote);
-      console.dir(redmineCookie);
-      if (redmineCookie.length === 1) {
-        vmx.redmine.cookie = redmineCookie[0].value;
+      const redmineCookies = await window.api.getCookies(
+        vmx.redmine.partition,
+        vmx.redmine.baseURL,
+        vmx.redmine.cookieName
+      );
+      console.dir(redmineCookies);
+      if (redmineCookies.length === 1) {
+        vmx.redmine.cookieValue = redmineCookies[0].value;
       }
     });
   }
@@ -60,11 +56,12 @@ export default class TabBrowser extends Vue {
 
   async addTab(url: string = vmx.redmine.baseURL) {
     if (this.tabGroup === null) return;
-    console.log(__dirname);
-    console.log(__filename);
-    const p =
-      'file://' +
-      path.join('/workspaces/redplanner/dist_electron', 'tabBrowserPreload.js');
+    const p = require('path').join(
+      'file://',
+      await window.api.getMainProcessDir(),
+      'tabBrowserPreload.js'
+    );
+    console.log(p);
     const tab = this.tabGroup.addTab({
       title: url,
       visible: true,

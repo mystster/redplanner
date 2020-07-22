@@ -11,7 +11,7 @@ module.exports = {
         preload: 'src/preload.ts',
         tabBrowserPreload: 'src/tabBrowserPreload.ts'
       },
-      nodeIntegration: true,
+      nodeIntegration: false,
       builderOptions: {
         appId: 'mystster.redplanner',
         nsis: {

@@ -1,7 +1,10 @@
 import { createModule, mutation, action } from 'vuex-class-component';
 
 export interface RedmineState {
-  cookie: string;
+  cookieValue: string;
+  baseURL: string;
+  partition: string;
+  cookieName: string;
 }
 
 const VuexModule = createModule({
@@ -12,19 +15,9 @@ const VuexModule = createModule({
 export class RedmineStore extends VuexModule implements RedmineState {
   // state
   // proxy auto create getter, mutation and action
-  cookie = '';
+  cookieValue = '';
   baseURL = 'http://redmine';
 
   get partition(): string { return 'persist:redmine'; }
-  get cookieSession(): string { return '_redmine_session';}
-  // mutation
-  @mutation
-  private setCookieMutation(value: string) {
-    this.cookie = value;
-  }
-
-  @action
-  public async SetCookie(Value: string) {
-    this.setCookieMutation(Value);
-  }
+  get cookieName(): string { return '_redmine_session';}
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, session } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { autoUpdater } from 'electron-updater';
@@ -26,6 +26,7 @@ function createWindow() {
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: (process.env
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
+      contextIsolation: true,
       webviewTag: true,
       preload: path.join(__dirname, 'preload.js')
     }
@@ -109,3 +110,19 @@ if (isDevelopment) {
     });
   }
 }
+
+
+ipcMain.handle('get-dir', () => {
+  console.log('fire get-dir');
+  return __dirname
+});
+ipcMain.handle('get-cookies', async (ev, partition: string, url: string, name: string) => {
+  console.log(`get-cookies: ${partition}, ${url}, ${name}`);
+  return await session.fromPartition(partition).cookies.get({url, name});
+})
+ipcMain.handle('set-cookie', async (ev, partition: string, url: string, name: string, value: string) => {
+  console.log(`set-cookie: ${partition}, ${url}, ${name}, ${value}`);
+  await session.fromPartition(partition)
+    .cookies.remove(url, name);
+  await session.fromPartition(partition).cookies.set({url, name, value});
+})
