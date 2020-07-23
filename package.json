@@ -8,8 +8,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build --win --x64 -p never",
-    "electron:publish": "vue-cli-service electron:build --win --x64 -p always",
     "electron:build-dir": "vue-cli-service electron:build --win --x64 --dir",
+    "electron:publish": "vue-cli-service electron:build --win --x64 -p always",
     "electron:serve": "vue-cli-service electron:serve --no-sandbox",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
@@ -24,6 +24,7 @@
     "vue": "2.6.11",
     "vue-class-component": "7.2.3",
     "vue-property-decorator": "8.5.1",
+    "vue-router": "^3.2.0",
     "vuex": "3.5.1",
     "vuex-class-component": "2.3.3",
     "vuex-persist": "2.2.0"
@@ -36,6 +37,7 @@
     "@vue/cli": "4.4.6",
     "@vue/cli-plugin-babel": "4.4.6",
     "@vue/cli-plugin-eslint": "4.4.6",
+    "@vue/cli-plugin-router": "^4.4.6",
     "@vue/cli-plugin-typescript": "4.4.6",
     "@vue/cli-service": "4.4.6",
     "@vue/eslint-config-prettier": "6.0.0",
