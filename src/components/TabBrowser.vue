@@ -1,8 +1,8 @@
 <template>
-  <div class="tabBrowser" id="tabBrowserPlaceholder">
+  <div class="tabBrowser container" id="tabBrowserPlaceholder">
     <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
-      <button @click="addTab()">addTab</button>
+      <b-button type="is-light" icon-left="plus" @click="addTab()"> </b-button>
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div>

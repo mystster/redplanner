@@ -16,6 +16,8 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@mdi/font": "^5.3.45",
+    "buefy": "^0.8.20",
     "core-js": "3.6.5",
     "electron-tabs": "0.15.0",
     "electron-updater": "^4.3.1",
