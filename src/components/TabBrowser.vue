@@ -45,7 +45,10 @@ export default class TabBrowser extends Vue {
     await this.addTab();
   }
 
-  async addTab(url: string = vmx.redmine.baseURL) {
+  async addTab(
+    url: string = vmx.redmine.baseURL,
+    isActive = true
+  ): Promise<Tab | void> {
     if (this.tabGroup === null) return;
     const p = require('path').join(
       'file://',
@@ -53,7 +56,7 @@ export default class TabBrowser extends Vue {
       'tabBrowserPreload.js'
     );
     console.log(p);
-    const tab = this.tabGroup.addTab({
+    const tab: Tab = this.tabGroup.addTab({
       title: url,
       visible: true,
       src: url,
@@ -61,7 +64,7 @@ export default class TabBrowser extends Vue {
         partition: vmx.redmine.partition,
         preload: p
       },
-      active: true
+      active: isActive
     });
 
     tab.once('webview-dom-ready', (t: Tab) => {
@@ -76,6 +79,7 @@ export default class TabBrowser extends Vue {
         }
       }
     });
+    return tab;
   }
 }
 </script>
