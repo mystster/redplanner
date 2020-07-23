@@ -2,7 +2,7 @@
   <div class="tabBrowser" id="tabBrowserPlaceholder">
     <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
-      <v-btn @click="addTab()">addTab</v-btn>
+      <button @click="addTab()">addTab</button>
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div>
