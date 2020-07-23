@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import TabGroup, { Tab } from 'electron-tabs';
 import { vmx } from '@/store';
 

@@ -1,4 +1,4 @@
-import { Cookie, ipcRenderer, Cookies } from 'electron';
+import { Cookie, ipcRenderer } from 'electron';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix

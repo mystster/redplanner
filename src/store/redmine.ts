@@ -1,4 +1,4 @@
-import { createModule, mutation, action } from 'vuex-class-component';
+import { createModule } from 'vuex-class-component';
 
 export interface RedmineState {
   cookieValue: string;
