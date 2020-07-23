@@ -42,16 +42,7 @@ export default class TabBrowser extends Vue {
   }
   async mounted() {
     this.tabGroup = new TabGroup();
-    this.tabGroup.addTab({
-      title: 'Hello',
-      src: 'https://www.google.co.jp',
-      visible: true
-    });
-    this.tabGroup.addTab({
-      title: 'Hello',
-      src: './test.html',
-      visible: true
-    });
+    await this.addTab();
   }
 
   async addTab(url: string = vmx.redmine.baseURL) {
