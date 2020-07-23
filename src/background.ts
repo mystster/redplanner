@@ -41,7 +41,7 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
   }
-  
+
   win.on('closed', () => {
     win = null;
   });
@@ -99,7 +99,7 @@ app.on('ready', async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
-    process.on('message', data => {
+    process.on('message', (data) => {
       if (data === 'graceful-exit') {
         app.quit();
       }
@@ -111,18 +111,22 @@ if (isDevelopment) {
   }
 }
 
-
 ipcMain.handle('get-dir', () => {
   console.log('fire get-dir');
-  return __dirname
+  return __dirname;
 });
-ipcMain.handle('get-cookies', async (ev, partition: string, url: string, name: string) => {
-  console.log(`get-cookies: ${partition}, ${url}, ${name}`);
-  return await session.fromPartition(partition).cookies.get({url, name});
-})
-ipcMain.handle('set-cookie', async (ev, partition: string, url: string, name: string, value: string) => {
-  console.log(`set-cookie: ${partition}, ${url}, ${name}, ${value}`);
-  await session.fromPartition(partition)
-    .cookies.remove(url, name);
-  await session.fromPartition(partition).cookies.set({url, name, value});
-})
+ipcMain.handle(
+  'get-cookies',
+  async (ev, partition: string, url: string, name: string) => {
+    console.log(`get-cookies: ${partition}, ${url}, ${name}`);
+    return await session.fromPartition(partition).cookies.get({ url, name });
+  }
+);
+ipcMain.handle(
+  'set-cookie',
+  async (ev, partition: string, url: string, name: string, value: string) => {
+    console.log(`set-cookie: ${partition}, ${url}, ${name}, ${value}`);
+    await session.fromPartition(partition).cookies.remove(url, name);
+    await session.fromPartition(partition).cookies.set({ url, name, value });
+  }
+);

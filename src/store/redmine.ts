@@ -18,6 +18,10 @@ export class RedmineStore extends VuexModule implements RedmineState {
   cookieValue = '';
   baseURL = 'http://redmine';
 
-  get partition(): string { return 'persist:redmine'; }
-  get cookieName(): string { return '_redmine_session';}
+  get partition(): string {
+    return 'persist:redmine';
+  }
+  get cookieName(): string {
+    return '_redmine_session';
+  }
 }
