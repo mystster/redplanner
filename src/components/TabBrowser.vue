@@ -72,6 +72,8 @@ export default class TabBrowser extends Vue {
     });
 
     tab.webview.addEventListener('ipc-message', (event) => {
+      console.log(`get message`);
+      console.dir(event);
       switch (event.channel) {
         case 'open-newtab': {
           console.log(`open new tab with ${event.args[0]}`);
