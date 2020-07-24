@@ -1,5 +1,5 @@
 <template>
-  <TabBrowser />
+  <TabBrowser class="max-width" />
 </template>
 <script lang="ts">
 import TabBrowser from '../components/TabBrowser.vue';
@@ -15,5 +15,9 @@ export default class App extends Vue {}
 <style>
 .etabs-views {
   max-height: calc(100vh - 3.25rem - 33px);
+}
+
+.max-width {
+  max-width: 100vw !important;
 }
 </style>

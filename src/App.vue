@@ -22,9 +22,7 @@
     </b-navbar>
     <section class="hero is-fullheight-with-navbar">
       <div class="hero-head">
-        <div class="max-width">
-          <router-view class="max-width" />
-        </div>
+        <router-view />
       </div>
     </section>
   </div>
@@ -50,10 +48,6 @@
       color: #42b983;
     }
   }
-}
-
-.max-width {
-  max-width: 100vw !important;
 }
 
 ::-webkit-scrollbar {
