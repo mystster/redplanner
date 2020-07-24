@@ -1,11 +1,32 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/redmine">Redmine View</router-link> |
-      <router-link to="/home">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <b-navbar class="is-primary-background">
+      <template slot="brand">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+          Redplanner
+        </b-navbar-item>
+      </template>
+      <template slot="start">
+        <b-navbar-item tag="router-link" :to="{ path: '/redmine' }">
+          Redmine View
+        </b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/about' }">
+          About
+        </b-navbar-item>
+      </template>
+      <template slot="end">
+        <b-navbar-item tag="router-link" :to="{ path: '/setting' }">
+          Setting
+        </b-navbar-item>
+      </template>
+    </b-navbar>
+    <section class="hero is-fullheight-with-navbar">
+      <div class="hero-head">
+        <div class="max-width">
+          <router-view class="max-width" />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -29,5 +50,13 @@
       color: #42b983;
     }
   }
+}
+
+.max-width {
+  max-width: 100vw !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 </style>
