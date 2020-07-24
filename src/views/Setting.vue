@@ -1,19 +1,14 @@
 <template>
   <div>
-    <section class="hero is-primary">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            設定
-          </h1>
-          <h2 class="subtitle">
-            xxxxxx
-          </h2>
-        </div>
-      </div>
-    </section>
-    <section class="is-boader">
-      aaaa
+    <section class="section">
+      <div class="subtitle">Redmine Setting</div>
+      <b-field label="baseURL" label-position="on-border">
+        <b-input v-model="redmine.baseURL"></b-input>
+      </b-field>
+      <b-field label="Partition" label-position="on-border">
+        <b-input v-model="redmine.partition"></b-input>
+      </b-field>
+      <b-button type="is-warning" @click="clearCookie">Clear Cookie</b-button>
     </section>
   </div>
 </template>
@@ -25,7 +20,7 @@ import { vmx } from '@/store';
 export default class Setting extends Vue {
   redmine = vmx.redmine;
 
-  async clearCoookie() {
+  async clearCookie() {
     vmx.redmine.cookieValue = '';
     window.api.setCookie(
       vmx.redmine.partition,
