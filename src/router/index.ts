@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Redmine from '../views/Redmine.vue';
+import Setting from '../views/Setting.vue'
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes: Array<RouteConfig> = [
     path: '/redmine',
     name: 'Redmine view',
     component: Redmine
+  },
+  {
+    path: '/setting',
+    name: 'Setting',
+    component: Setting
   },
   {
     path: '/',
