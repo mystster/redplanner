@@ -20,7 +20,7 @@ export default class TabBrowser extends Vue {
   async created() {
     console.log('Vue instance created. load cookie');
     if (vmx.redmine.cookieValue !== '') {
-      await window.api.setCookie(
+      await window.setCookie(
         vmx.redmine.partition,
         vmx.redmine.baseURL,
         vmx.redmine.cookieName,
@@ -29,7 +29,7 @@ export default class TabBrowser extends Vue {
     }
     window.addEventListener('beforeunload', async () => {
       console.log('beforeunload! Save cookie');
-      const redmineCookies = await window.api.getCookies(
+      const redmineCookies = await window.getCookies(
         vmx.redmine.partition,
         vmx.redmine.baseURL,
         vmx.redmine.cookieName
@@ -52,7 +52,7 @@ export default class TabBrowser extends Vue {
     if (this.tabGroup === null) return;
     const p = require('path').join(
       'file://',
-      await window.api.getMainProcessDir(),
+      await window.getMainProcessDir(),
       'tabBrowserPreload.js'
     );
     console.log(p);
@@ -70,7 +70,6 @@ export default class TabBrowser extends Vue {
     tab.once('webview-dom-ready', (t: Tab) => {
       t.webview.openDevTools();
     });
-
     tab.webview.addEventListener('ipc-message', (event) => {
       console.log(`get message`);
       console.dir(event);
@@ -111,7 +110,7 @@ export default class TabBrowser extends Vue {
   display: none;
   position: relative;
   color: #333;
-  height: 22px;
+  height: 32px;
   padding: 6px 8px 4px;
   border: 1px solid #aaa;
   border-bottom: none;

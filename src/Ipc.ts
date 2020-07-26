@@ -1,9 +1,22 @@
 import { Cookie, ipcRenderer } from 'electron';
+import { EventEmitter } from 'events';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   interface Window {
-    api: IpcApi;
+    // api: IpcApi;
+    getMainProcessDir: () => Promise<string>;
+    getCookies: (
+      partition: string,
+      url: string,
+      name: string
+    ) => Promise<Cookie[]>;
+    setCookie: (
+      partition: string,
+      url: string,
+      name: string,
+      value: string
+    ) => Promise<void>;
   }
 }
 interface IpcApi {
