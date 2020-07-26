@@ -30,7 +30,6 @@
     "config:base",
     "helpers:disableTypesNodeMajor",
     ":timezone(Asia/Tokyo)",
-    "schedule:weekdays",
     ":assignee(mystster)",
     ":prConcurrentLimit10"
   ]
