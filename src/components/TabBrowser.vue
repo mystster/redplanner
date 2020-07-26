@@ -76,7 +76,8 @@ export default class TabBrowser extends Vue {
       switch (event.channel) {
         case 'open-newtab': {
           console.log(`open new tab with ${event.args[0]}`);
-          this.addTab(event.args[0]);
+          if (vmx.setting.openNewTabWhenMiddleOrCtrlRight)
+            this.addTab(event.args[0]);
         }
       }
     });

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Redmine from '../views/Redmine.vue';
-import Setting from '../views/Setting.vue'
+import Setting from '../views/Setting.vue';
 
 Vue.use(VueRouter);
 
