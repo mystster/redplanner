@@ -22,7 +22,9 @@
     </b-navbar>
     <section class="hero is-fullheight-with-navbar">
       <div class="hero-head">
-        <router-view />
+        <keep-alive include="TabBrowser">
+          <router-view />
+        </keep-alive>
       </div>
     </section>
   </div>
