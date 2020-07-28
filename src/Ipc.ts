@@ -1,7 +1,6 @@
 import { Cookie, ipcRenderer } from 'electron';
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   interface Window {
     // api: IpcApi;
     getMainProcessDir: () => Promise<string>;

@@ -14,11 +14,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import TabGroup, { Tab } from 'electron-tabs';
 import { vmx } from '@/store';
 import 'vue-class-component/hooks';
+import path from 'path';
 
 @Component
 export default class TabBrowser extends Vue {
   private tabGroup: null | TabGroup = null;
-  async created() {
+  async created(): Promise<void> {
     console.log('Vue instance created. load cookie');
     if (vmx.redmine.cookieValue !== '') {
       await window.setCookie(
@@ -41,12 +42,12 @@ export default class TabBrowser extends Vue {
       }
     });
   }
-  async mounted() {
+  async mounted(): Promise<void> {
     this.tabGroup = new TabGroup();
     await this.addTab();
   }
 
-  async beforeDestroy() {
+  async beforeDestroy(): Promise<void> {
     console.log('before destroy. save cookie');
     const redmineCookies = await window.getCookies(
       vmx.redmine.partition,
@@ -62,12 +63,11 @@ export default class TabBrowser extends Vue {
     isActive = true
   ): Promise<Tab | void> {
     if (this.tabGroup === null) return;
-    const p = require('path').join(
+    const p = path.join(
       'file://',
       await window.getMainProcessDir(),
       'tabBrowserPreload.js'
     );
-    console.log(p);
     const tab: Tab = this.tabGroup.addTab({
       title: url,
       visible: true,

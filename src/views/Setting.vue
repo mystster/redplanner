@@ -27,15 +27,14 @@ export default class Setting extends Vue {
   redmine = vmx.redmine;
   setting = vmx.setting;
 
-  async clearCookie() {
+  async clearCookie(): Promise<void> {
     vmx.redmine.cookieValue = '';
-    window.setCookie(
+    await window.setCookie(
       vmx.redmine.partition,
       vmx.redmine.baseURL,
       vmx.redmine.cookieName,
       vmx.redmine.cookieValue
     );
-    this.setting.openNewTabWhenMiddleOrCtrlRight;
   }
 
   //TODO: すべてのクッキーを消す
