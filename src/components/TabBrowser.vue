@@ -13,6 +13,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import TabGroup, { Tab } from 'electron-tabs';
 import { vmx } from '@/store';
+import 'vue-class-component/hooks';
 
 @Component
 export default class TabBrowser extends Vue {
@@ -45,6 +46,17 @@ export default class TabBrowser extends Vue {
     await this.addTab();
   }
 
+  async beforeDestroy() {
+    console.log('before destroy. save cookie');
+    const redmineCookies = await window.getCookies(
+      vmx.redmine.partition,
+      vmx.redmine.baseURL,
+      vmx.redmine.cookieName
+    );
+    if (redmineCookies.length === 1) {
+      vmx.redmine.cookieValue = redmineCookies[0].value;
+    }
+  }
   async addTab(
     url: string = vmx.redmine.baseURL,
     isActive = true
