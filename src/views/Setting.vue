@@ -1,21 +1,19 @@
 <template>
   <div>
-    <section class="section">
-      <div class="subtitle">Redmine Setting</div>
-      <b-field label="baseURL" label-position="on-border">
-        <b-input v-model="redmine.baseURL"></b-input>
-      </b-field>
-      <b-field label="Partition" label-position="on-border">
-        <b-input v-model="redmine.partition"></b-input>
-      </b-field>
-      <b-button type="is-warning" @click="clearCookie">Clear Cookie</b-button>
-    </section>
-    <section class="section">
-      <div class="subtitle">General Setting</div>
-      <b-checkbox v-model="setting.openNewTabWhenMiddleOrCtrlRight">
+    <el-form ref="redmine" :model="redmine" label-width="120px">
+      <el-form-item label="baseURL">
+        <el-input v-model="redmine.baseURL"></el-input>
+      </el-form-item>
+      <el-form-item label="Partition">
+        <el-input v-model="redmine.partition"></el-input>
+      </el-form-item>
+      <el-button @click="clearCookie">Clear Cookie</el-button>
+    </el-form>
+    <el-form ref="setting" :model="setting">
+      <el-checkbox v-model="setting.openNewTabWhenMiddleOrCtrlRight">
         oepnNewTab when middle or ctrl+right click
-      </b-checkbox>
-    </section>
+      </el-checkbox>
+    </el-form>
   </div>
 </template>
 <script lang="ts">

@@ -1,8 +1,8 @@
 <template>
-  <div class="tabBrowser container" id="tabBrowserPlaceholder">
+  <div class="tabBrowse" id="tabBrowserPlaceholder">
     <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
-      <b-button type="is-light" icon-left="plus" @click="addTab()"> </b-button>
+      <el-button size="small" icon="el-icon-plus" @click="addTab()"> </el-button>
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div>
@@ -241,7 +241,7 @@ export default class TabBrowser extends Vue {
 .etabs-views {
   position: relative;
   border-top: 1px solid #aaa;
-  height: calc(100vh - 33px);
+  height: calc(100vh);
 }
 
 .etab-view {

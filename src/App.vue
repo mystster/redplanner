@@ -1,58 +1,35 @@
 <template>
   <div id="app">
-    <b-navbar class="is-primary-background">
-      <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          Redplanner
-        </b-navbar-item>
-      </template>
-      <template slot="start">
-        <b-navbar-item tag="router-link" :to="{ path: '/redmine' }">
-          Redmine View
-        </b-navbar-item>
-        <b-navbar-item tag="router-link" :to="{ path: '/about' }">
-          About
-        </b-navbar-item>
-      </template>
-      <template slot="end">
-        <b-navbar-item tag="router-link" :to="{ path: '/setting' }">
-          Setting
-        </b-navbar-item>
-      </template>
-    </b-navbar>
-    <section class="hero is-fullheight-with-navbar">
-      <div class="hero-head">
+    <el-container>
+      <el-aside width="100px">
+        <el-menu :router="true">
+          <el-menu-item index="Redmine view" :route="{name: 'Redmine view'}">Redmine View</el-menu-item>
+          <el-menu-item index="Home" :route="{name: 'Home'}">Home</el-menu-item>
+          <el-menu-item index="About" :route="{name: 'About'}">About</el-menu-item>
+          <el-menu-item index="Setting" :route="{name: 'Setting'}">Setting</el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-container>
+      <el-main>
         <keep-alive>
-          <router-view />
+          <router-view></router-view>
         </keep-alive>
-      </div>
-    </section>
+      </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
 ::-webkit-scrollbar {
   display: none;
+}
+
+.el-main {
+  padding: 0px
+}
+
+body{
+  margin: 0px;
 }
 </style>
