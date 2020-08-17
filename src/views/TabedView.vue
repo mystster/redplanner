@@ -1,15 +1,15 @@
 <template>
-  <TabBrowser />
+  <Tab />
 </template>
 <script lang="ts">
-import TabBrowser from '../components/TabBrowser.vue';
+import Tab from '../components/Tab.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    TabBrowser
+    Tab
   }
 })
-export default class Redmine extends Vue {}
+export default class TabedView extends Vue {}
 </script>
 <style></style>

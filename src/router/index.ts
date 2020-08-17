@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Redmine from '../views/Redmine.vue';
 import Setting from '../views/Setting.vue';
+import TabedView from '../views/TabedView.vue';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ const routes: Array<RouteConfig> = [
     path: '/redmine',
     name: 'Redmine view',
     component: Redmine
+  },
+  {
+    path: '/tab',
+    name: 'Tab',
+    component: TabedView
   },
   {
     path: '/setting',
