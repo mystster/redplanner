@@ -2,7 +2,8 @@
   <div class="tabBrowse" id="tabBrowserPlaceholder">
     <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
-      <el-button size="small" icon="el-icon-plus" @click="addTab()"> </el-button>
+      <el-button size="small" icon="el-icon-plus" @click="addTab()">
+      </el-button>
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div>
