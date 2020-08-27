@@ -61,7 +61,7 @@ export class TabStore extends VuexModule implements TabState {
         ...payload
       };
       const index = this._tabs.findIndex((x) => x.id === this._activeTabID);
-      index !== -1 ? this._tabs.splice(index, 0, t) : this._tabs.push(t);
+      index !== -1 ? this._tabs.splice(index + 1, 0, t) : this._tabs.push(t);
       this._activeTabID = t.id;
     }
   }
