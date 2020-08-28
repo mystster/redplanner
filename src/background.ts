@@ -5,6 +5,8 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
+import { callbackify } from 'util';
+import { dir } from 'console';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -28,6 +30,7 @@ function createWindow() {
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
       contextIsolation: false,
       webviewTag: true,
+      webSecurity: false,
       preload: path.join(__dirname, 'preload.js')
     }
   });
@@ -64,6 +67,10 @@ autoUpdater.on('update-downloaded', (e) => {
   console.log('event:', e);
 });
 autoUpdater.checkForUpdatesAndNotify();
+
+// disable CORS
+// https://github.com/electron/electron/issues/23664
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
