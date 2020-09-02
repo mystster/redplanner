@@ -4,6 +4,9 @@
       <el-form-item label="baseURL">
         <el-input v-model="redmine.baseURL"></el-input>
       </el-form-item>
+      <el-form-item label="apiKey">
+        <el-input v-model="redmine.apiKey"></el-input>
+      </el-form-item>
       <el-form-item label="Partition">
         <el-input v-model="redmine.partition"></el-input>
       </el-form-item>
@@ -34,7 +37,5 @@ export default class Setting extends Vue {
       vmx.redmine.cookieValue
     );
   }
-
-  //TODO: すべてのクッキーを消す
 }
 </script>
