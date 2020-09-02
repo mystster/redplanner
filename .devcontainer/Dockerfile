@@ -37,9 +37,9 @@ RUN apt-get update \
     && apt-get -y install --no-install-recommends libxcomposite1 libxcursor1 libxrender1 libxtst6 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libxss1 \
     #
     # Install Japanese fonts
-    # && apt-get install -y  --no-install-recommends locales\
-    # && locale-gen ja_JP.UTF-8 \
-    # && localedef -f UTF-8 -i ja_JP ja_JP.utf8 \
+    && apt-get install -y  --no-install-recommends locales fonts-takao-gothic\
+    && locale-gen ja_JP.UTF-8 \
+    && localedef -f UTF-8 -i ja_JP ja_JP.utf8 \
     #
     # Install typescript globally
     && npm install -g typescript npm \
