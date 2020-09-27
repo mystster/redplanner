@@ -1,4 +1,4 @@
-import { createModule, action, mutation } from 'vuex-class-component';
+import { createModule, mutation } from 'vuex-class-component';
 import { nanoid } from 'nanoid';
 
 export type TabInfo = {
