@@ -26,7 +26,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { vmx } from '@/store';
 import 'vue-class-component/hooks';
 import { PartialIDTabInfo } from '@/store/tab';
-import { TabPane } from 'element-ui';
+import { ElTabPane } from 'element-ui/types/tab-pane';
 
 @Component
 export default class Tab extends Vue {
@@ -55,7 +55,7 @@ export default class Tab extends Vue {
     }
   }
 
-  handleClick(tab: TabPane): void {
+  handleClick(tab: ElTabPane): void {
     console.dir(tab);
     console.log(`current tab is: ${tab.name}`);
   }
