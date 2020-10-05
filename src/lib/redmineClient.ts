@@ -59,7 +59,7 @@ export class RedmineClient {
     }
     const originalOption = option;
     const result: Issues = new Issues(
-     ( await this.service.get('/issues.json', { params: option })).data
+      (await this.service.get('/issues.json', { params: option })).data
     );
     // 初期limit（25）以上の項目がある場合はページング実施
     // リクエストは非同期で投げるようにすることで、高速化
@@ -78,7 +78,9 @@ export class RedmineClient {
           option.offset = offset;
           option.limit = this.perPageItemNumber;
         }
-        issueRequested.push(this.service.get('/issues.json', { params: option }));
+        issueRequested.push(
+          this.service.get('/issues.json', { params: option })
+        );
       }
       (await Promise.all(issueRequested)).forEach(
         (x) => (result.issues = result.issues.concat(new Issues(x.data).issues))
