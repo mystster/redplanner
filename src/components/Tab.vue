@@ -13,8 +13,10 @@
         :label="item.title"
         :name="item.id"
       >
-        <div style="height: calc(100vh - 75px);" :id="item.id">
+        <div style="height: calc(100vh - 75px)" :id="item.id">
           {{ item.id }}
+          {{ item.type }}
+          <issue-component />
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -25,31 +27,30 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { vmx } from '@/store';
 import 'vue-class-component/hooks';
-import { PartialIDTabInfo } from '@/store/tab';
 import { ElTabPane } from 'element-ui/types/tab-pane';
+import IssueComponent from '../components/IssueComponent.vue';
 
-@Component
+@Component({
+  components: {
+    IssueComponent
+  }
+})
 export default class Tab extends Vue {
   tabs = vmx.tab;
 
-  async handleTabsEdit(
-    name: string | null,
-    action: string | null
-  ): Promise<void> {
+  handleTabsEdit(name: string | null, action: string | null): void {
     switch (action) {
       case 'add': {
-        const t: PartialIDTabInfo = {
-          url: 'aaaa',
-          type: 'issue',
-          title: 'abc',
-          issueID: 122
-        };
-        await this.tabs.AddorUpdateTab(t);
+        if (this.tabs.Tabs.length % 2 === 0) {
+          this.tabs.AddorUpdateTab('http://redmine/issue/1');
+        } else {
+          this.tabs.AddorUpdateTab('http://www.google.co.jp');
+        }
         break;
       }
       case 'remove': {
         console.log(`${name}, ${action}`);
-        if (name != null) await this.tabs.RemoveTab(name);
+        if (name != null) this.tabs.RemoveTab(name);
         break;
       }
     }
