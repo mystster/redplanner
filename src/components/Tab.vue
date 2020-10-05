@@ -10,7 +10,7 @@
       <el-tab-pane
         v-for="item in tabs.Tabs"
         :key="item.id"
-        :label="item.title"
+        :label="getTitle(item)"
         :name="item.id"
       >
         <div style="height: calc(100vh - 75px)" :id="item.id">
@@ -29,6 +29,7 @@ import { vmx } from '@/store';
 import 'vue-class-component/hooks';
 import { ElTabPane } from 'element-ui/types/tab-pane';
 import IssueComponent from '../components/IssueComponent.vue';
+import { TabInfo } from '@/store/tab';
 
 @Component({
   components: {
@@ -59,6 +60,14 @@ export default class Tab extends Vue {
   handleClick(tab: ElTabPane): void {
     console.dir(tab);
     console.log(`current tab is: ${tab.name}`);
+  }
+
+  getTitle(data: TabInfo): string {
+    if (data.type === 'issue') {
+      return `${data.issue?.id} ${data.issue?.subject}`;
+    } else {
+      return 'web';
+    }
   }
 }
 </script>
