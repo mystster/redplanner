@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "2.2.0",
-    "@types/node": "12.12.68",
+    "@types/node": "12.19.1",
     "@typescript-eslint/eslint-plugin": "4.5.0",
     "@typescript-eslint/parser": "4.5.0",
     "@vue/cli": "4.5.8",
