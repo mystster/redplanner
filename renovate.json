@@ -1,5 +1,6 @@
 {
   "masterIssue": true,
+  "ignoreDeps": ["@types/node"],
   "minor": {
     "labels": ["dependencies", "minor"]
   },
