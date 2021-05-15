@@ -20,7 +20,7 @@
     "core-js": "3.6.5",
     "dayjs": "1.9.4",
     "electron-tabs": "0.15.0",
-    "electron-updater": "4.3.5",
+    "electron-updater": "4.3.9",
     "element-ui": "2.13.2",
     "nanoid": "3.1.15",
     "vue": "2.6.12",
