@@ -22,7 +22,7 @@
     "electron-tabs": "0.15.0",
     "electron-updater": "4.3.5",
     "element-ui": "2.13.2",
-    "nanoid": "3.1.15",
+    "nanoid": "3.1.30",
     "vue": "2.6.12",
     "vue-class-component": "7.2.6",
     "vue-property-decorator": "9.0.2",
