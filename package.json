@@ -16,7 +16,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "axios": "0.20.0",
+    "axios": "0.28.0",
     "core-js": "3.6.5",
     "dayjs": "1.9.4",
     "electron-tabs": "0.15.0",
